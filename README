@@ -1,0 +1,294 @@
+
+#user@localhost:~$
+wget -c https://releases.linaro.org/components/toolchain/binaries/6.5-2018.12/arm-linux-gnueabihf/gcc-linaro-6.5.0-2018.12-x86_64_arm-linux-gnueabihf.tar.xz
+tar xf gcc-linaro-6.5.0-2018.12-x86_64_arm-linux-gnueabihf.tar.xz
+export CC=`pwd`/gcc-linaro-6.5.0-2018.12-x86_64_arm-linux-gnueabihf/bin/arm-linux-gnueabihf-
+
+
+#user@localhost:~/u-boot$
+wget -c https://github.com/eewiki/u-boot-patches/raw/master/v2019.04/0001-mx6sabresd-fixes.patch
+ 
+patch -p1 < 0001-mx6sabresd-fixes.patch
+
+
+#user@localhost:~/u-boot$
+make ARCH=arm CROSS_COMPILE=${CC} distclean
+make ARCH=arm CROSS_COMPILE=${CC} mx6sabresd_defconfig
+
+sudo apt-get install flex
+sudo apt-get install bison
+
+make ARCH=arm CROSS_COMPILE=${CC}
+
+
+
+#Thus you would use:
+export DISK=/dev/sdb
+
+sudo dd if=/dev/zero of=${DISK} bs=1M count=10
+
+
+#user@localhost:~$
+sudo dd if=./u-boot/SPL of=${DISK} seek=1 bs=1k
+sudo dd if=./u-boot/u-boot.img of=${DISK} seek=69 bs=1k
+
+
+umi@ZumiPC:~/SSR-DOC/u-boot$ 
+zumi@ZumiPC:~/SSR-DOC/u-boot$ 
+zumi@ZumiPC:~/SSR-DOC/u-boot$ 
+zumi@ZumiPC:~/SSR-DOC/u-boot$ 
+zumi@ZumiPC:~/SSR-DOC/u-boot$ cd arch/arm/dts
+zumi@ZumiPC:~/SSR-DOC/u-boot/arch/arm/dts$ 
+zumi@ZumiPC:~/SSR-DOC/u-boot/arch/arm/dts$ vim fsl-
+fsl-imx8-ca35.dtsi           fsl-imx8qxp.dtsi             fsl-ls1012a-frdm.dtsi        fsl-ls1043a.dtsi             fsl-ls1046a-qds.dtsi         fsl-ls1088a-rdb.dts          fsl-lx2160a.dtsi
+fsl-imx8-ca53.dtsi           fsl-imx8qxp-mek.dts          fsl-ls1012a-frwy.dts         fsl-ls1043a-qds.dtsi         fsl-ls1046a-qds-duart.dts    fsl-ls2080a.dtsi             fsl-lx2160a-qds.dts
+fsl-imx8dx.dtsi              fsl-imx8qxp-mek-u-boot.dtsi  fsl-ls1012a-qds.dts          fsl-ls1043a-qds-duart.dts    fsl-ls1046a-qds-lpuart.dts   fsl-ls2080a-qds.dts          fsl-lx2160a-rdb.dts
+fsl-imx8dxp.dtsi             fsl-ls1012a-2g5rdb.dts       fsl-ls1012a-qds.dtsi         fsl-ls1043a-qds-lpuart.dts   fsl-ls1046a-rdb.dts          fsl-ls2080a-rdb.dts          
+fsl-imx8mq.dtsi              fsl-ls1012a.dtsi             fsl-ls1012a-rdb.dts          fsl-ls1043a-rdb.dts          fsl-ls1088a.dtsi             fsl-ls2081a-rdb.dts          
+fsl-imx8mq-evk.dts           fsl-ls1012a-frdm.dts         fsl-ls1012a-rdb.dtsi         fsl-ls1046a.dtsi             fsl-ls1088a-qds.dts          fsl-ls2088a-rdb-qspi.dts     
+zumi@ZumiPC:~/SSR-DOC/u-boot/arch/arm/dts$ ls *imx6*
+imx6dl.dtsi                    imx6dl-sabresd.dts             imx6q-icore.dtb               imx6q-sabreauto.dtb           imx6sx-sdb-u-boot.dtsi         imx6ull-pinfunc.h
+imx6dl-icore.dtb               imx6dl-sabresd-u-boot.dtsi     imx6q-icore.dts               imx6q-sabreauto.dts           imx6ul-14x14-evk.dts           imx6ull-pinfunc-snvs.h
+imx6dl-icore.dts               imx6-logicpd-baseboard.dtsi    imx6q-icore-mipi.dtb          imx6q-sabreauto-u-boot.dtsi   imx6ul-14x14-evk-u-boot.dtsi   imx6ul-opos6uldev.dts
+imx6dl-icore-mipi.dtb          imx6-logicpd-som.dtsi          imx6q-icore-mipi.dts          imx6q-sabresd.dtb             imx6ul-9x9-evk.dts             imx6ul-opos6uldev-u-boot.dtsi
+imx6dl-icore-mipi.dts          imx6q-cm-fx6.dtb               imx6q-icore-mipi-u-boot.dtsi  imx6q-sabresd.dts             imx6ul-9x9-evk-u-boot.dtsi     imx6ul-opos6ul.dtsi
+imx6dl-icore-mipi-u-boot.dtsi  imx6q-cm-fx6.dts               imx6q-icore-rqs.dtb           imx6q-sabresd-u-boot.dtsi     imx6ul.dtsi                    imx6ul-opos6ul-u-boot.dtsi
+imx6dl-icore-rqs.dtb           imx6q-display5.dts             imx6q-icore-rqs.dts           imx6sl.dtsi                   imx6ul-geam.dts                imx6ul-pcl063.dtsi
+imx6dl-icore-rqs.dts           imx6qdl.dtsi                   imx6q-icore-rqs-u-boot.dtsi   imx6sl-evk.dts                imx6ul-geam-u-boot.dtsi        imx6ul-phycore-segin.dts
+imx6dl-icore-rqs-u-boot.dtsi   imx6qdl-icore.dtsi             imx6q-icore-u-boot.dtsi       imx6sll.dtsi                  imx6ul-isiot.dtsi              imx6ul-pico.dtsi
+imx6dl-icore-u-boot.dtsi       imx6qdl-icore-rqs.dtsi         imx6q-logicpd.dts             imx6sll-evk.dts               imx6ul-isiot-emmc.dts          imx6ul-pico-hobbit.dts
+imx6dl-mamoj.dtb               imx6qdl-icore-rqs-u-boot.dtsi  imx6qp.dtsi                   imx6sll-pinfunc.h             imx6ul-isiot-emmc-u-boot.dtsi  imx6ul-pico-pi.dts
+imx6dl-mamoj.dts               imx6qdl-icore-u-boot.dtsi      imx6q-pinfunc.h               imx6sl-pinfunc.h              imx6ul-isiot-nand.dts          imx6ul-pinfunc.h
+imx6dl-mamoj-u-boot.dtsi       imx6qdl-sabreauto.dtsi         imx6qp-sabreauto.dtb          imx6sx.dtsi                   imx6ul-isiot-u-boot.dtsi       imx6ul-u-boot.dtsi
+imx6dl-pinfunc.h               imx6qdl-sabreauto-u-boot.dtsi  imx6qp-sabreauto.dts          imx6sx-pinfunc.h              imx6ull-14x14-evk.dts
+imx6dl-sabreauto.dtb           imx6qdl-sabresd.dtsi           imx6qp-sabreauto-u-boot.dtsi  imx6sx-sabreauto.dts          imx6ull-colibri.dts
+imx6dl-sabreauto.dts           imx6qdl-sabresd-u-boot.dtsi    imx6qp-sabresd.dtb            imx6sx-sabreauto-u-boot.dtsi  imx6ull.dtsi
+imx6dl-sabreauto-u-boot.dtsi   imx6qdl-u-boot.dtsi            imx6qp-sabresd.dts            imx6sx-sdb.dts                imx6ul-liteboard.dts
+imx6dl-sabresd.dtb             imx6q.dtsi                     imx6qp-sabresd-u-boot.dtsi    imx6sx-sdb.dtsi               imx6ul-litesom.dtsi
+zumi@ZumiPC:~/SSR-DOC/u-boot/arch/arm/dts$ vim imx6q-sabresd.dts
+zumi@ZumiPC:~/SSR-DOC/u-boot/arch/arm/dts$ vim imx6qdl-sabresd.dtsi
+zumi@ZumiPC:~/SSR-DOC/u-boot/arch/arm/dts$ cd ../../..
+zumi@ZumiPC:~/SSR-DOC/u-boot$ 
+zumi@ZumiPC:~/SSR-DOC/u-boot$ 
+zumi@ZumiPC:~/SSR-DOC/u-boot$ 
+zumi@ZumiPC:~/SSR-DOC/u-boot$ 
+zumi@ZumiPC:~/SSR-DOC/u-boot$ 
+zumi@ZumiPC:~/SSR-DOC/u-boot$ 
+zumi@ZumiPC:~/SSR-DOC/u-boot$ export CC=`pwd`/gcc-linaro-6.5.0-2018.12-x86_64_arm-linux-gnueabihf/bin/arm-linux-gnueabihf-
+zumi@ZumiPC:~/SSR-DOC/u-boot$ cd ..
+zumi@ZumiPC:~/SSR-DOC$ export CC=`pwd`/gcc-linaro-6.5.0-2018.12-x86_64_arm-linux-gnueabihf/bin/arm-linux-gnueabihf-
+zumi@ZumiPC:~/SSR-DOC$ 
+zumi@ZumiPC:~/SSR-DOC$ ${CC}gcc --version
+arm-linux-gnueabihf-gcc (Linaro GCC 6.5-2018.12) 6.5.0
+Copyright (C) 2017 Free Software Foundation, Inc.
+This is free software; see the source for copying conditions.  
+
+
+imx6qdl-sabresd.dtsi     pin mux function is present.
+
+zumi@ZumiPC:~/SSR-DOC/u-boot$ cat /proc/partitions 
+major minor  #blocks  name
+
+   7        0          4 loop0
+   7        1      64804 loop1
+   7        2     354640 loop2
+   7        3      41824 loop3
+   7        4     358088 loop4
+   7        5      75676 loop5
+   7        6      12620 loop6
+   7        7      64988 loop7
+   8        0  976762584 sda
+   8        1  976760832 sda1
+ 259        0  500107608 nvme0n1
+ 259        1     524288 nvme0n1p1
+ 259        2  499581952 nvme0n1p2
+   7       11      93888 loop11
+   7       10     508908 loop10
+   7        8      47032 loop8
+   7       12      41836 loop12
+   7        9       6204 loop9
+   7       13     463932 loop13
+   7       14     507432 loop14
+   7       15     507492 loop15
+   8       16   15558144 sdb
+zumi@ZumiPC:~/SSR-DOC/u-boot$ 
+zumi@ZumiPC:~/SSR-DOC/u-boot$ 
+zumi@ZumiPC:~/SSR-DOC/u-boot$ 
+zumi@ZumiPC:~/SSR-DOC/u-boot$ cd ..
+zumi@ZumiPC:~/SSR-DOC$ export DISK=/dev/sdb
+zumi@ZumiPC:~/SSR-DOC$ sudo dd if=/dev/zero of=${DISK} bs=1M count=10
+10+0 records in
+10+0 records out
+10485760 bytes (10 MB, 10 MiB) copied, 1.15247 s, 9.1 MB/s
+zumi@ZumiPC:~/SSR-DOC$ sudo dd if=./u-boot/SPL of=${DISK} seek=1 bs=1k
+71+0 records in
+71+0 records out
+72704 bytes (73 kB, 71 KiB) copied, 0.0198967 s, 3.7 MB/s
+zumi@ZumiPC:~/SSR-DOC$ sudo dd if=./u-boot/u-boot.img of=${DISK} seek=69 bs=1k
+604+1 records in
+604+1 records out
+618940 bytes (619 kB, 604 KiB) copied, 0.177134 s, 3.5 MB/s
+zumi@ZumiPC:~/SSR-DOC$ cd u-boot/
+zumi@ZumiPC:~/SSR-DOC/u-boot$ vim ./configs/mx6sabresd_defconfig
+zumi@ZumiPC:~/SSR-DOC/u-boot$ cd arch/arm/dts
+zumi@ZumiPC:~/SSR-DOC/u-boot/arch/arm/dts$ vim imx6qdl-sabresd.dtsi
+zumi@ZumiPC:~/SSR-DOC/u-boot/arch/arm/dts$ 
+zumi@ZumiPC:~/SSR-DOC/u-boot/arch/arm/dts$ 
+zumi@ZumiPC:~/SSR-DOC/u-boot/arch/arm/dts$ 
+zumi@ZumiPC:~/SSR-DOC/u-boot/arch/arm/dts$ 
+DOC/u-boot/drivers$ vim spi/mxc_spi.c 
+zumi@ZumiPC:~/SSR-DOC/u-boot/drivers$ 
+zumi@ZumiPC:~/SSR-DOC/u-boot/drivers$ 
+zumi@ZumiPC:~/SSR-DOC/u-boot/drivers$ grep cs-gpios * -r
+spi/pic32_spi.c:	ret = gpio_request_by_name_nodev(offset_to_ofnode(node), "cs-gpios", 0,
+spi/pic32_spi.c:		printf("pic32-spi: error, cs-gpios not found\n");
+Binary file spi/built-in.o matches
+spi/soft_spi.c:	if (gpio_request_by_name(dev, "cs-gpios", 0, &plat->cs,
+spi/mxc_spi.c:	if (gpio_request_by_name(bus, "cs-gpios", 0, &plat->ss,
+spi/mxc_spi.c:		dev_err(bus, "No cs-gpios property\n");
+spi/atmel_spi.c:	ret = gpio_request_list_by_name(bus, "cs-gpios", priv->cs_gpios,
+Binary file spi/mxc_spi.o matches
+spi/Kconfig:		cs-gpios = <0>, <&gpio_a 0>;
+zumi@ZumiPC:~/SSR-DOC/u-boot/drivers$ vim spi/mxc_spi.c 
+zumi@ZumiPC:~/SSR-DOC/u-boot/drivers$ pwd
+/home/zumi/SSR-DOC/u-boot/drivers
+zumi@ZumiPC:~/SSR-DOC/u-boot/drivers$ vim spi/mxc_spi.c 
+zumi@ZumiPC:~/SSR-DOC/u-boot/drivers$ 
+zumi@ZumiPC:~/SSR-DOC/u-boot/drivers$ 
+zumi@ZumiPC:~/SSR-DOC/u-boot/drivers$ 
+zumi@ZumiPC:~/SSR-DOC/u-boot/drivers$ vim spi/mxc_spi.c 
+zumi@ZumiPC:~/SSR-DOC/u-boot/drivers$ 
+zumi@ZumiPC:~/SSR-DOC/u-boot/drivers$ 
+zumi@ZumiPC:~/SSR-DOC/u-boot/drivers$ vim spi/mxc_spi.c 
+zumi@ZumiPC:~/SSR-DOC/u-boot/drivers$ vim spi/mxc_spi.c 
+zumi@ZumiPC:~/SSR-DOC/u-boot/drivers$ 
+zumi@ZumiPC:~/SSR-DOC/u-boot/drivers$ 
+zumi@ZumiPC:~/SSR-DOC/u-boot/drivers$ grep SPI_CS_HIGH * -r
+rtc/ds1306.c:				SPI_MODE_3 | SPI_CS_HIGH);
+rtc/ds1306.c:				SPI_MODE_3 | SPI_CS_HIGH);
+rtc/ds1306.c:				SPI_MODE_3 | SPI_CS_HIGH);
+spi/fsl_dspi.c:	if (state & SPI_CS_HIGH)
+spi/spi-uclass.c:		mode |= SPI_CS_HIGH;
+spi/stm32_qspi.c:	if (mode & SPI_CS_HIGH)
+spi/soft_spi.c:	cs_flags = (slave->mode & SPI_CS_HIGH) ? 0 : GPIOD_ACTIVE_LOW;
+spi/ti_qspi.c:	if (mode & SPI_CS_HIGH)
+spi/meson_spifc.c:			   mode & SPI_CS_HIGH ? USER4_CS_POL_HIGH : 0);
+spi/mxc_spi.c:	if (mode & SPI_CS_HIGH)
+spi/mxc_spi.c:	if (mode & SPI_CS_HIGH)
+spi/mxc_spi.c:	mxcs->ss_pol = (mode & SPI_CS_HIGH) ? 1 : 0;
+spi/mxc_spi.c:	mxcs->ss_pol = (mode & SPI_CS_HIGH) ? 1 : 0;
+spi/omap3_spi.c:	if (!(priv->mode & SPI_CS_HIGH))
+spi/bcm63xx_hsspi.c:	if (plat->mode & SPI_CS_HIGH)
+zumi@ZumiPC:~/SSR-DOC/u-boot/drivers$ cd ../include/
+zumi@ZumiPC:~/SSR-DOC/u-boot/include$ grep SPI_CS_HIGH * -r
+configs/mx51evk.h:#define CONFIG_FSL_PMIC_MODE	(SPI_MODE_0 | SPI_CS_HIGH)
+configs/mx31pdk.h:#define CONFIG_FSL_PMIC_MODE	(SPI_MODE_0 | SPI_CS_HIGH)
+spi.h:#define SPI_CS_HIGH	BIT(2)			/* CS active high */
+zumi@ZumiPC:~/SSR-DOC/u-boot/include$ cd -
+/home/zumi/SSR-DOC/u-boot/drivers
+zumi@ZumiPC:~/SSR-DOC/u-boot/drivers$ 
+
+=> sspi 0:0.4 32 b01234
+Zumi **********mode = 4 
+Zumi : CS mxcs->ss_pol = 1 
+Zumi : CS High 
+Zumi : mxc_spi_xfer Entered 
+Zumi : mxc_spi_xfer_internal Entered b0 n_bytes = 4 
+Zumi : DM_SPI mxc_spi_cs_activate = 1 
+Zumi spi_xchg_single: bitlen 32 dout 0x4ffe77d8 din 0x4ffe77b8
+Sending SPI 0xb0123400
+SPI Rx: 0xffffffff 0xffffffff
+Zumi : DM_SPI mxc_spi_cs_deactivate = 1 
+FFFFFFFF
+=> sspi 0:0.4 32 b01234
+Zumi **********mode = 4 
+Zumi : CS mxcs->ss_pol = 1 
+Zumi : CS High 
+Zumi : mxc_spi_xfer Entered 
+Zumi : mxc_spi_xfer_internal Entered b0 n_bytes = 4 
+Zumi : DM_SPI mxc_spi_cs_activate = 1 
+Zumi spi_xchg_single: bitlen 32 dout 0x4ffe77d8 din 0x4ffe77b8
+Sending SPI 0xb0123400
+SPI Rx: 0xffffffff 0xffffffff
+Zumi : DM_SPI mxc_spi_cs_deactivate = 1 
+FFFFFFFF
+=> sspi 0:0.4 32 b01234
+Zumi **********mode = 4 
+Zumi : CS mxcs->ss_pol = 1 
+Zumi : CS High 
+Zumi : mxc_spi_xfer Entered 
+Zumi : mxc_spi_xfer_internal Entered b0 n_bytes = 4 
+Zumi : DM_SPI mxc_spi_cs_activate = 1 
+Zumi spi_xchg_single: bitlen 32 dout 0x4ffe77d8 din 0x4ffe77b8
+Sending SPI 0xb0123400
+SPI Rx: 0xffffffff 0xffffffff
+Zumi : DM_SPI mxc_spi_cs_deactivate = 1 
+FFFFFFFF
+=> sspi 0:0.4 32 b01234
+Zumi **********mode = 4 
+Zumi : CS mxcs->ss_pol = 1 
+Zumi : CS High 
+Zumi : mxc_spi_xfer Entered 
+Zumi : mxc_spi_xfer_internal Entered b0 n_bytes = 4 
+Zumi : DM_SPI mxc_spi_cs_activate = 1 
+Zumi spi_xchg_single: bitlen 32 dout 0x4ffe77d8 din 0x4ffe77b8
+Sending SPI 0xb0123400
+SPI Rx: 0xffffffff 0xffffffff
+Zumi : DM_SPI mxc_spi_cs_deactivate = 1 
+FFFFFFFF
+=> 
+
+
+/*
+&ecspi1 {
+        cs-gpios = <&gpio4 9 0>;
+        pinctrl-names = "default";
+        pinctrl-0 = <&pinctrl_ecspi1>;
+        status = "okay";
+
+        flash: m25p80@0 {
+                #address-cells = <1>;
+                #size-cells = <1>;
+                compatible = "st,m25p32", "jedec,spi-nor";
+                spi-max-frequency = <20000000>;
+                reg = <0>;
+        };
+};
+*/
+
+&ecspi1 {
+       pinctrl-names = "default";
+       pinctrl-0 = <&pinctrl_ecspi1>;
+       status = "okay";
+       cs-gpios = <&gpio4 9 1>;
+
+    spidev0: spi@0 {
+        reg = <0>;
+        spi-max-frequency = <400000>;
+    };
+};
+
+
+&fec {
+        pinctrl-names = "default";
+        pinctrl-0 = <&pinctrl_enet>;
+        phy-mode = "rgmii";
+        phy-reset-gpios = <&gpio1 25 GPIO_ACTIVE_LOW>;
+        status = "okay";
+};
+
+&hdmi {
+        pinctrl-names = "default";
+        pinctrl-0 = <&pinctrl_hdmi_cec>;
+        ddc-i2c-bus = <&i2c2>;
+        status = "okay";
+};
+
+&i2c1 {
+        clock-frequency = <100000>;
+        pinctrl-names = "default";
+        pinctrl-0 = <&pinctrl_i2c1>;
+        status = "okay";
+
+        codec: wm8962@1a {
+"imx6qdl-sabresd.dtsi" 755L, 16447C  
